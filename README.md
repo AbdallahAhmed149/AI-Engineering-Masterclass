@@ -2,137 +2,306 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Jupyter](https://img.shields.io/badge/Jupyter-Notebooks-F37626?logo=jupyter&logoColor=white)](https://jupyter.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-DL-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-An executable, notebook-first curriculum for learning the foundations of machine
-learning and AI engineering. The repository moves from linear algebra and
-statistics through regression, classification, neural networks, data
-preprocessing, cross-validation, regularization, and distribution-shift
+An executable, notebook-first curriculum covering the mathematical foundations
+of machine learning, classical regression and classification, data quality,
+neural networks, cross-validation, regularization, and distribution-shift
 analysis.
 
-> **Scope:** This is a learning and experimentation repository. It does not
-> currently include a production API, model registry, CI pipeline, Dockerfile,
-> or a single deployed model with an application-level latency/SLA target.
+The repository is designed for progressive learning: concepts are introduced
+mathematically, implemented with Python, and validated with visualizations and
+evaluation metrics on synthetic and public datasets.
 
-## Abstract / Overview
+> **Scope:** This is an educational experimentation repository. It does not
+> currently provide a production API, model registry, CI pipeline, Dockerfile,
+> or a single deployed model benchmark.
 
-The notebooks demonstrate how to build, inspect, train, and evaluate classical
-and neural ML models from first principles and with established Python
-frameworks. Examples use synthetic data and public datasets, including
-California Housing, Diabetes, and Breast Cancer datasets.
+## Project Overview
 
-The technical progression emphasizes the complete modeling lifecycle:
+The notebooks demonstrate an end-to-end machine learning workflow:
 
-- Translate mathematical concepts into vectorized NumPy and PyTorch code.
-- Explore data distributions, correlations, outliers, and missing values.
-- Build regression and classification baselines with scikit-learn.
-- Implement perceptrons, Adaline, logistic regression, and multilayer
-  perceptrons with PyTorch.
-- Tune learning rates with cross-validation and learning curves.
-- Study regularization, learning-rate schedules, and covariate shift.
+1. Understand linear algebra, statistics, probability, and correlation.
+2. Load and explore real datasets such as California Housing and Breast Cancer.
+3. Clean data through scaling, outlier treatment, and missing-value imputation.
+4. Train regression, classification, and neural-network models.
+5. Compare optimization strategies and model architectures.
+6. Tune hyperparameters with cross-validation and learning curves.
+7. Diagnose multicollinearity, covariate shift, overfitting, and regularization.
 
-The primary value is reproducible engineering intuition: each concept is
-connected to executable code, visual diagnostics, and measurable evaluation
-rather than treated as an isolated algorithm.
+The examples emphasize both **theory and implementation**: several algorithms
+are built from scratch, then compared with scikit-learn or PyTorch equivalents.
 
-## Architecture & Pipeline
-
-The repository is organized as a sequence of Jupyter notebooks rather than a
-packaged application:
-
-```text
-Public / synthetic dataset
-          |
-          v
-Load -> inspect -> visualize -> clean / transform
-          |
-          v
-Train baseline or neural model
-          |
-          v
-Validate / tune -> evaluate on held-out data
-          |
-          v
-Plot learning curves, decision boundaries, residuals, and diagnostics
-```
-
-### Learning workflow
-
-1. **Foundations:** `ai_foundations_lecture1_and_2.ipynb` covers matrix
-   operations, descriptive statistics, probability, and correlation.
-2. **Regression:** `Linear_and_Polynomial_Regression.ipynb` and
-   `Week3_Regression_on_real_data.ipynb` cover linear and polynomial regression,
-   gradient descent, PyTorch optimization, and California Housing.
-3. **Classification and neural networks:**
-   `week4_perceptron_logistic_DeepNNs.ipynb` covers perceptrons, Adaline,
-   logistic regression, random forests, and PyTorch MLPs on the Breast Cancer
-   dataset.
-4. **Data quality and feature analysis:** the Week 5 notebooks cover
-   standardization, outlier handling, imputation, visualization, correlation,
-   and variance inflation factor (VIF) analysis.
-5. **Reliable evaluation and robustness:** cross-validation, learning-rate
-   selection, covariate-shift detection, L1/L2 regularization, and learning-rate
-   schedulers are demonstrated in the remaining Week 5 notebooks.
-
-### Data pipeline
-
-The notebooks use lightweight, in-notebook ETL:
-
-1. Download or construct a public dataset.
-2. Inspect schema, distributions, missing values, and outliers.
-3. Split data into training, validation, and test partitions where applicable.
-4. Fit preprocessing transforms on training data only, then apply them to
-   validation and test data.
-5. Train a baseline or neural model and compare metrics and diagnostics.
-
-There is no external database, vector store, feature store, or persistent
-inference service in the current repository.
-
-## Performance Metrics
-
-The following are reproducible dataset and workflow figures visible in the
-notebooks. Production metrics such as request throughput and inference latency
-are not claimed because this repository does not expose a serving endpoint.
-
-| Metric | Value | Context |
-|---|---:|---|
-| California Housing samples | **20,640** | Regression examples |
-| Breast Cancer samples | **569** | Binary classification examples |
-| Breast Cancer input features | **30** | MLP and classical classification examples |
-| Cross-validation configuration | **5-fold** | Learning-rate selection workflow |
-| Cross-validation exercise | **10-fold** | Follow-up evaluation exercise |
-| PyTorch MLP hidden width | **64 neurons** | Breast Cancer classification notebook |
-| Published F1-score | **Not reported** | No repository-wide benchmark claim |
-| Inference latency | **Not measured** | No production inference service |
-| Inference throughput | **Not measured** | No API or load-test harness |
-
-Model scores vary with the notebook, preprocessing choices, random seed, and
-exercise configuration. Treat notebook outputs as instructional experiments,
-not as a single official leaderboard.
-
-## Tech Stack
+## Technologies & Stack
 
 - **Python 3.10+**
 - **Jupyter Notebook / JupyterLab**
-- **NumPy** for numerical computing and vectorized operations
+- **NumPy** for vectorized numerical computation
 - **Pandas** for tabular data manipulation
 - **SciPy** for statistical tests and scientific utilities
-- **Matplotlib** and **Seaborn** for visualization
+- **Matplotlib / Seaborn** for visualization
 - **scikit-learn** for datasets, preprocessing, classical models, metrics, and
   cross-validation
-- **PyTorch** for optimization exercises and neural networks
-- **statsmodels** for VIF and multicollinearity analysis
+- **PyTorch** for neural networks, optimization, and regularization exercises
+- **statsmodels** for variance inflation factor (VIF) analysis
 
-## Getting Started
+## Notebook Deep Dives
+
+### 1. `ai_foundations_lecture1_and_2.ipynb`
+
+#### Objective
+
+Build the mathematical and statistical foundation required for later machine
+learning notebooks.
+
+#### Key Concepts
+
+- Matrix multiplication, determinants, and matrix inversion
+- Mean, median, trimmed mean, variance, and standard deviation
+- Monte Carlo estimation and probability distributions
+- Pearson and Spearman correlation
+- Cosine similarity and its relationship to centered correlation
+- Covariance matrices and multivariate distributions
+
+#### Metrics & Results
+
+| Metric / experiment | Result |
+|---|---:|
+| Pearson correlation example | **0.636** |
+| Perfect-correlation validation example | **1.000** |
+
+---
+
+### 2. `Linear_and_Polynomial_Regression.ipynb`
+
+#### Objective
+
+Implement linear and polynomial regression with gradient descent, compare the
+solution with the normal equation, and visualize underfitting and overfitting.
+
+#### Key Concepts
+
+- Linear and polynomial feature representations
+- Mean squared error and cost functions
+- Batch gradient descent
+- Normal-equation closed-form optimization
+- Feature standardization and learning-rate selection
+- Overfitting as model complexity increases
+
+#### Metrics & Results
+
+| Experiment | Result |
+|---|---:|
+| Simple linear regression final parameters | `w = 0.9982`, `b = 0.0128` |
+| Simple linear regression final cost | **0.0000** |
+| Unstandardized gradient descent cost | **0.085213** |
+| Standardized gradient descent cost | **0.036879** |
+| Normal-equation final cost | **0.032252** |
+
+---
+
+### 3. `Week3_Regression_on_real_data.ipynb`
+
+#### Objective
+
+Apply regression techniques to the California Housing dataset and compare
+from-scratch, scikit-learn, polynomial, and PyTorch implementations.
+
+#### Key Concepts
+
+- Exploratory data analysis and feature-target correlation
+- California Housing regression
+- Vectorized gradient descent from scratch
+- Polynomial regression and model-complexity comparison
+- PyTorch optimization with multiple features
+- Normal-equation and scikit-learn baselines
+- Residual and loss-surface visualization
+
+#### Metrics & Results
+
+| Model / experiment | MSE |
+|---|---:|
+| Degree-1 regression | **0.3506** |
+| Degree-2 regression | **0.3475** |
+| Degree-3 regression | **0.3421** |
+| Degree-5 regression | **0.3420** |
+| Best recorded multi-feature/PyTorch run | **0.3157** |
+| `MedInc` single-feature baseline | **0.3506** |
+| `AveRooms` single-feature baseline | **0.6926** |
+
+Additional analysis found a target correlation of **0.688** for `MedInc` versus
+**0.106** for `HouseAge`, illustrating why feature analysis matters before
+training.
+
+---
+
+### 4. `week4_perceptron_logistic_DeepNNs.ipynb`
+
+#### Objective
+
+Study binary classification from the perceptron and Adaline algorithms through
+logistic regression, random forests, and PyTorch deep neural networks.
+
+#### Key Concepts
+
+- Perceptron decision boundaries and binary updates
+- Adaline and sum-of-squared-error optimization
+- Sigmoid activation and logistic regression
+- Binary cross-entropy / log loss
+- Feature standardization
+- Random forest classification
+- PyTorch multilayer perceptrons
+- Comparing two-feature and thirty-feature models
+
+#### Metrics & Results
+
+| Model / experiment | Training accuracy | Test accuracy | Additional metric |
+|---|---:|---:|---:|
+| Logistic Regression | — | **99.12%** | Log loss **0.0594**; mean CV **97.36%** |
+| Random Forest | — | **96.49%** | Log loss **0.0957**; mean CV **95.82%** |
+| Perceptron | **87.91%** | **85.09%** | — |
+| Adaline | **88.35%** | **89.47%** | SSE **0.200451** |
+| Logistic regression from scratch | **89.45%** | **87.72%** | Cross-entropy **0.256953** |
+| PyTorch logistic regression | **89.45%** | **87.72%** | Loss **0.256990** |
+| PyTorch MLP, 30 features | **99.78%** | **94.74%** | Loss **0.036886** |
+
+The notebook also compares feature dimensionality: the two-feature network
+achieved **87.72%** test accuracy, while the thirty-feature network achieved
+**94.74%**.
+
+---
+
+### 5. `Week5_Part1_Data_Preprocessing.ipynb`
+
+#### Objective
+
+Demonstrate how preprocessing choices affect optimization stability, model
+quality, and the distribution of training data.
+
+#### Key Concepts
+
+- Feature scaling and standardization
+- Training-statistics-only preprocessing
+- Outlier detection and percentile capping
+- Mean, median, and KNN imputation
+- Optimization instability caused by unscaled features
+- Distribution comparison after imputation
+
+#### Metrics & Results
+
+| Experiment | Result |
+|---|---:|
+| Unscaled regression cost | **9.73 × 10³¹** |
+| Scaled regression cost | **391.26** |
+| Scaled + adjusted optimization cost | **378.81** |
+| Cost with outliers | **0.5322** |
+| Cost after capping outliers | **0.3965** |
+| KNN imputation | Reported as closest to the original distribution in the notebook |
+
+---
+
+### 6. `Week5_Part2_Visualization_Multicollinearity.ipynb`
+
+#### Objective
+
+Use visual and statistical diagnostics to understand feature relationships and
+identify multicollinearity before model fitting.
+
+#### Key Concepts
+
+- Histograms, box plots, and scatter-based EDA
+- Correlation matrices
+- Feature-target correlation
+- Multicollinearity and unstable coefficient estimates
+- Variance inflation factor (VIF)
+- Feature removal and regularization as mitigation strategies
+
+#### Metrics & Results
+
+| Analysis | Result |
+|---|---|
+| Feature-target analysis | Correlation matrix generated for California Housing features |
+| Multicollinearity analysis | VIF values computed with `statsmodels` |
+| Outlier analysis | Box-plot workflow demonstrated on the Diabetes dataset |
+| Published model score | Not the primary objective of this notebook |
+
+This notebook focuses on diagnostic outputs rather than a single predictive
+benchmark; VIF and correlation values are generated interactively when cells
+are executed.
+
+---
+
+### 7. `Week5_Part3_CrossValidation.ipynb`
+
+#### Objective
+
+Build a reliable model-selection workflow using train/validation/test splits,
+K-fold cross-validation, learning curves, and learning-rate tuning.
+
+#### Key Concepts
+
+- Separation of training, validation, and external test data
+- Five-fold K-fold cross-validation
+- Ten-fold cross-validation exercise
+- Validation curves for learning-rate selection
+- PyTorch MLP training and learning curves
+- Final evaluation on an untouched test set
+
+#### Metrics & Results
+
+| Evaluation | Result |
+|---|---:|
+| Selected learning rate from five-fold CV | **0.01** |
+| Final test accuracy | **96.49%** |
+| Ten-fold CV accuracy at learning rate `0.001` | **97.14% ± 3.29%** |
+| Dataset | Breast Cancer, **569 samples / 30 features** |
+
+---
+
+### 8. `Week5_Part4_Advanced_Topics.ipynb`
+
+#### Objective
+
+Investigate covariate shift, regularization, and learning-rate schedules as
+practical tools for improving model robustness and generalization.
+
+#### Key Concepts
+
+- Covariate-shift simulation and diagnosis
+- Overlapping coefficient (OVL)
+- Kolmogorov-Smirnov (KS) test
+- L1 and L2 regularization
+- Phased regularization schedules
+- Exponential learning-rate scheduling
+- Comparing training and test behavior
+
+#### Metrics & Results
+
+| Experiment | Result |
+|---|---:|
+| OVL, feature 0 | **0.5134** |
+| OVL, feature 1 | **0.4997** |
+| Representative KS statistic | **0.4958**, `p < 0.000001` |
+| Additional KS statistics | **0.5096**, **0.5100**, **0.5252**, **0.5094** |
+| No-regularization accuracy | Train **98.00%**, test **86.67%** |
+| L2-regularization accuracy | Train **87.86%**, test **85.67%** |
+| Strong-L2 exercise accuracy | **85.67%** test |
+| Learning-rate scheduler accuracy | **98.25%** test |
+
+The very small KS-test p-values indicate statistically significant distribution
+differences in the simulated covariate-shift examples.
+
+## How to Run
 
 ### Prerequisites
 
 - Python 3.10 or newer
 - `pip`
-- Optional: Docker Desktop or Docker Engine for a containerized notebook
-  environment
+- Optional: Docker Desktop or Docker Engine
 
-### Local installation
+### Local setup
 
 ```bash
 git clone https://github.com/AbdallahAhmed149/AI-Engineering-Masterclass.git
@@ -147,25 +316,36 @@ python -m pip install \
   scikit-learn statsmodels torch
 ```
 
-The notebooks download public datasets through scikit-learn, so an internet
-connection may be required on first execution. No environment variables or
-secrets are required.
+No environment variables or secrets are required. Some notebooks download
+public datasets through scikit-learn on first execution.
 
-### Start Jupyter
+### Launch Jupyter
 
 ```bash
 jupyter lab
 ```
 
-Open the notebook that corresponds to the topic you want to study. Run cells
-from top to bottom so that preprocessing, fitted parameters, and visualizations
-are initialized in the expected order.
+Run each notebook from top to bottom in a fresh kernel. This ensures that
+preprocessing objects, trained parameters, and visualizations are initialized
+in the intended order.
 
-### Optional Docker workflow
+### Execute a notebook non-interactively
 
-The repository does not currently ship a `Dockerfile`. To run the notebooks in
-an isolated Jupyter container, mount the repository into a scientific Python
-image and install the project dependencies in the container:
+```bash
+jupyter nbconvert \
+  --to notebook \
+  --execute Week3_Regression_on_real_data.ipynb \
+  --output /tmp/week3.executed.ipynb
+```
+
+The command writes execution results to a separate notebook and leaves the
+source notebook unchanged. Interactive plots and exercise cells may still
+require manual review.
+
+### Optional Docker environment
+
+The repository does not currently include a `Dockerfile`. A Jupyter scientific
+Python image can be used as an isolated environment:
 
 ```bash
 docker run --rm -it \
@@ -175,82 +355,37 @@ docker run --rm -it \
   start-notebook.py --NotebookApp.token=''
 ```
 
-In a terminal attached to the container, install the additional dependencies
-used by the notebooks:
+Install the extra notebook dependencies from the container terminal:
 
 ```bash
 python -m pip install torch statsmodels
 ```
 
-Then open `http://localhost:8888` and select the mounted
-`/home/jovyan/work` directory.
-
-## Training & Inference
-
-This project exposes notebook-based training rather than a command-line
-training package or HTTP inference API.
-
-### Reproduce a training workflow
-
-```bash
-jupyter nbconvert \
-  --to notebook \
-  --execute Week3_Regression_on_real_data.ipynb \
-  --output /tmp/week3.executed.ipynb
-```
-
-For the neural-network and cross-validation workflows:
-
-```bash
-jupyter nbconvert \
-  --to notebook \
-  --execute Week5_Part3_CrossValidation.ipynb \
-  --output /tmp/cross-validation.executed.ipynb
-```
-
-`nbconvert` executes cells in order and writes a separate output notebook,
-leaving the source notebook unchanged. Interactive plots and exercises may
-require manual review after execution.
-
-### Inference
-
-There is no standalone inference command or deployed API in the current
-repository. Inference is performed inside each notebook after a model has been
-trained, typically by calling a scikit-learn estimator's `predict` method or a
-PyTorch model in evaluation mode:
-
-```python
-model.eval()
-with torch.no_grad():
-    predictions = model(features)
-```
+Then open `http://localhost:8888` and select `/home/jovyan/work`.
 
 ## Repository Layout
 
-| Path | Purpose |
+| Notebook | Focus |
 |---|---|
 | `ai_foundations_lecture1_and_2.ipynb` | Linear algebra, statistics, probability, and correlation |
-| `Linear_and_Polynomial_Regression.ipynb` | Regression concepts and overfitting |
-| `Week3_Regression_on_real_data.ipynb` | California Housing regression workflow |
-| `week4_perceptron_logistic_DeepNNs.ipynb` | Classical classification and PyTorch neural networks |
-| `Week5_Part1_Data_Preprocessing.ipynb` | Scaling, outliers, and missing-value imputation |
-| `Week5_Part2_Visualization_Multicollinearity.ipynb` | Visualization, correlation, and VIF |
-| `Week5_Part3_CrossValidation.ipynb` | Cross-validation, learning curves, and hyperparameter tuning |
+| `Linear_and_Polynomial_Regression.ipynb` | Regression, gradient descent, normal equation, and overfitting |
+| `Week3_Regression_on_real_data.ipynb` | California Housing regression |
+| `week4_perceptron_logistic_DeepNNs.ipynb` | Perceptron, Adaline, logistic regression, random forest, and MLPs |
+| `Week5_Part1_Data_Preprocessing.ipynb` | Scaling, outliers, and imputation |
+| `Week5_Part2_Visualization_Multicollinearity.ipynb` | EDA, correlation, and VIF |
+| `Week5_Part3_CrossValidation.ipynb` | Cross-validation and learning-rate tuning |
 | `Week5_Part4_Advanced_Topics.ipynb` | Covariate shift, regularization, and schedulers |
-| `LICENSE` | MIT license |
 
 ## Contributing
 
-Contributions that improve correctness, clarity, reproducibility, or learning
+Contributions that improve correctness, clarity, reproducibility, or teaching
 value are welcome.
 
 1. Fork the repository and create a focused feature branch.
-2. Keep examples self-contained and explain new assumptions in notebook
-   markdown.
-3. Run affected notebooks from a clean kernel and remove generated checkpoints
-   or temporary outputs before opening a pull request.
-4. Describe the change, validation performed, and any dataset or dependency
-   requirements in the pull request.
+2. Keep notebook examples self-contained and document new assumptions.
+3. Run affected notebooks from a clean kernel before opening a pull request.
+4. Remove generated checkpoints and temporary artifacts.
+5. Describe validation steps and dependency changes in the pull request.
 
 ## License
 
